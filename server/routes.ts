@@ -92,7 +92,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   // AI Generation Endpoint
   app.post(api.posts.generate.path, isAuthenticated, async (req, res) => {
       const { topic, tone } = req.body;
-      const prompt = `Write a blog post about "${topic}". Tone: ${tone || 'professional'}. Return JSON with "title" and "content" fields. Content should be in Markdown.`;
+      const prompt = `Write a blog post about "${topic}". Tone: ${tone || 'professional'}. Return JSON with "title" and "content" fields. Content should be in Markdown. Do not include any other text or markdown code blocks in your response, just the raw JSON.`;
       
       try {
           const result = await ai.models.generateContent({
@@ -101,8 +101,11 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
             config: { responseMimeType: "application/json" }
           });
           
-          const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+          let text = result.candidates?.[0]?.content?.parts?.[0]?.text;
           if (!text) throw new Error("No response from AI");
+          
+          // Clean up potential markdown formatting if AI ignores instruction
+          text = text.replace(/```json\n?|\n?```/g, '').trim();
           
           const json = JSON.parse(text);
           res.json(json);

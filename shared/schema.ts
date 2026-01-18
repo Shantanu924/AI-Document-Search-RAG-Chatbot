@@ -17,6 +17,7 @@ export const posts = pgTable("posts", {
 export const insertPostSchema = createInsertSchema(posts).omit({
   id: true,
   createdAt: true,
+  userId: true,
 });
 
 export type Post = typeof posts.$inferSelect;
