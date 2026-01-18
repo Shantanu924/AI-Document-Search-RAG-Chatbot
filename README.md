@@ -6,6 +6,8 @@ InkFlow AI is a full-stack blogging application that combines a rich text editor
 
 The application features Replit Auth for user authentication, a PostgreSQL database for persistence, and a modern React frontend with Tailwind CSS styling.
 
+App link: https://ai-blog-helper--spicdt4510.replit.app
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
