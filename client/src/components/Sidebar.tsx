@@ -23,7 +23,7 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="fixed inset-y-0 left-0 w-64 bg-background border-r border-border flex flex-col z-20 hidden md:flex">
+    <aside className="sticky top-0 h-screen w-64 bg-background border-r border-border flex flex-col z-20 hidden md:flex shrink-0">
       {/* Brand */}
       <div className="h-16 flex items-center px-6 border-b border-border/50">
         <div className="flex items-center gap-2 text-primary font-bold text-xl font-display">
